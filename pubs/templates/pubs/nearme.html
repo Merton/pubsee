@@ -42,6 +42,13 @@
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
+            {% for pub in near_pubs %}
+              var pub = {lat: {{pub.latitude}}, lng: {{pub.longitude}}};
+              var marker = new google.maps.Marker({
+                position: pub,
+                map: map
+              });
+            {% endfor %}
             infoWindow.setPosition(pos);
             infoWindow.setContent('You are here!');
             infoWindow.open(map);

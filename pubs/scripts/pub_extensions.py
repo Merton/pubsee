@@ -1,6 +1,5 @@
 from pubs.models import Pub
-# import Math
-
+import math
 def all_pubs():
     return Pub.objects.all()
 
@@ -11,17 +10,20 @@ def pub_by_name(name):
     return Pub.objects.filter(name = name)
 
 # returns all pubs within the given distance of the bearing points.
-def pub_within(lat, long, distance):
+def pub_within(distance):
+    lat1=51.524137
+    long1=-0.076236
     near_pubs = []
     for pub in all_pubs():
-        lat2=pub.latitude
-        long2=pub.longitude
-        if distance(lat,long,lat2,long2) >=distance:
+        lat2=float(pub.latitude)
+        long2=float(pub.longitude)
+        pubdistance=calc_distance(lat1,long1,lat2,long2)
+        if pubdistance<=distance:
             near_pubs.append(pub)
     return near_pubs
 
 # calculates distance between two bearing points
-def distance(lat1,long1,lat2,long2):
+def calc_distance(lat1,long1,lat2,long2):
     p = 0.017453292519943295;    # Math.PI / 180
-    a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((long2 - long1) * p))/2
-    return 12742 * asin(sqrt(a)) # 2 * R; R = 6371 km
+    a = 0.5 - math.cos((lat2 - lat1) * p)/2 + math.cos(lat1 * p) * math.cos(lat2 * p) * (1 - math.cos((long2 - long1) * p))/2
+    return 12742 * math.asin(math.sqrt(a)) # 2 * R; R = 6371 km

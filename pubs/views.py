@@ -18,5 +18,5 @@ def detail(request, pub_id):
     return render(request, 'pubs/detail.html', {'pub': pub})
 
 def nearme(request):
-    # near_pubs = pub_within(lat,long,5)
-    return render(request, 'pubs/nearme.html')#, {'near_pubs': near_pubs})
+    near_pubs = pub_within(5)
+    return render(request, 'pubs/nearme.html', {'near_pubs': near_pubs})
