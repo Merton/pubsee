@@ -5,4 +5,7 @@ from django.contrib import admin
 from pubs.models import Pub
 
 # Register your models here.
-admin.site.register(Pub)
+class PubAdmin(admin.ModelAdmin):
+    list_display = ('name', 'address', 'postcode', 'local_authority')
+
+admin.site.register(Pub, PubAdmin)
