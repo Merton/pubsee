@@ -9,10 +9,13 @@ def pub_by_id(pub_id):
 def pub_by_name(name):
     return Pub.objects.filter(name = name)
 
+def pubs_by_area(area):
+    return Pub.objects.filter(local_authority = area)
+    
 # returns all pubs within the given distance of the bearing points.
 def pub_within(distance):
-    lat1=51.524137
-    long1=-0.076236
+    lat1=50.761380
+    long1=-1.297824
     near_pubs = []
     for pub in all_pubs():
         lat2=float(pub.latitude)
