@@ -4,6 +4,12 @@ from django.db import models
 
 # Create your models here.
 
+class Local_Authority(models.Model):
+    name = models.TextField()
+
+    def __str__(self):
+        return self.name
+
 class Pub(models.Model):
     pub_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
@@ -13,8 +19,7 @@ class Pub(models.Model):
     northing = models.IntegerField()
     latitude = models.DecimalField(decimal_places=6,max_digits=8)
     longitude = models.DecimalField(decimal_places=6,max_digits=8)
-    local_authority = models.TextField()
-
+    local_authority = models.ForeignKey(Local_Authority, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

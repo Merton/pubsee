@@ -22,5 +22,7 @@ def nearme(request):
     return render(request, 'pubs/nearme.html', {'near_pubs': near_pubs})
 
 def local_pubs(request, local_authority):
-    local_pubs=get_list_or_404(Pub, local_authority=local_authority)
+    print(local_authority)
+    local_pubs=get_list_or_404(Pub, local_authority__name=local_authority)
+    # local_pubs=[Pub(pub_id=24,name="Anchor Inn",address="Anchor Inn 	Upper Street, Stratford St Mary, COLCHESTER, Essex",postcode="CO7 6LW",northing=604748,easting=234405,latitude=51.970390,longitude=0.979328,local_authority="Barbergh")]
     return render(request, 'pubs/local_authority.html', {'local_pubs':local_pubs, 'local_authority':local_authority})

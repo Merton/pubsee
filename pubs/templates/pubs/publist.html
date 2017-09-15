@@ -26,7 +26,7 @@
         <td>{{pub.northing}}</td>
         <td>{{pub.latitude}}</td>
         <td>{{pub.longitude}}</td>
-        <td>{{pub.local_authority}}</td>
+        <td><a href="{% url 'local_pubs' pub.local_authority %}">{{pub.local_authority}}</a></td>
       </tr>
       {% endfor %}
 {% else %}
