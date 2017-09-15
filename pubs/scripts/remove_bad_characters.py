@@ -1,18 +1,9 @@
-from pubs.models import Pub
-from pub_extensions import *
-
+from pubs.models import Local_Authority
+# from pub_extensions import all_pubs
 def remove_bad_characters():
-    for pub in all_pubs:
-        area = list(pub.local_authority)
-        char_pos=area.find("'")
-        if char_pos != -1:
-            print(area)
-            del area[char_pos]
-            area="".join(area)
-            pub.local_authority=area
-            p.save()
-            print(pub.local_authority)
-
+    for local_authority in Local_Authority.objects.all():
+        local_authority.name.replace("'", "")
+        local_authority.save()
 
 def run():
     remove_bad_characters()
