@@ -11,12 +11,10 @@ class Local_Authority(models.Model):
         return self.name
 
 class Pub(models.Model):
-    pub_id = models.IntegerField(primary_key=True)
+    pub_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     address = models.TextField()
     postcode = models.CharField(max_length=8)
-    easting = models.IntegerField()
-    northing = models.IntegerField()
     latitude = models.DecimalField(decimal_places=6,max_digits=8)
     longitude = models.DecimalField(decimal_places=6,max_digits=8)
     local_authority = models.ForeignKey(Local_Authority, on_delete=models.CASCADE)
