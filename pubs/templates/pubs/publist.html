@@ -1,34 +1,30 @@
-<style>
-.fixed_table {
-    table-layout: fixed;
-}
-</style>
-{% if publist %}
-    <table class="fixed_table">
-      <tr>
-        <th>Pub ID</th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Postcode</th>
-        <th>Easting</th>
-        <th>Northing</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-        <th>Local Authority</th>
-      </tr>
-      {% for pub in publist %}
-      <tr>
-        <td>{{ pub.pub_id }}</td>
-        <td><a href="{% url 'detail' pub.pub_id %}">{{pub.name}}</a></td>
-        <td>{{pub.address}}</td>
-        <td>{{pub.postcode}}</td>
-        <td>{{pub.easting}}</td>
-        <td>{{pub.northing}}</td>
-        <td>{{pub.latitude}}</td>
-        <td>{{pub.longitude}}</td>
-        <td><a href="{% url 'local_pubs' pub.local_authority %}">{{pub.local_authority}}</a></td>
-      </tr>
-      {% endfor %}
-{% else %}
-    <p>No pubs are available.</p>
-{% endif %}
+{% extends "./base.html" %}
+{% block content %}
+  <h1>Every pub in the UK</h1>
+    {% if publist %}
+      <table class="table table-hover">
+        <tr>
+          <th>Pub ID</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Postcode</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Local Authority</th>
+        </tr>
+        {% for pub in publist %}
+          <tr>
+            <td>{{ pub.pub_id }}</td>
+            <td><a href="{% url 'detail' pub.pub_id %}">{{pub.name}}</a></td>
+            <td>{{pub.address}}</td>
+            <td>{{pub.postcode}}</td>
+            <td>{{pub.latitude}}</td>
+            <td>{{pub.longitude}}</td>
+            <td><a href="{% url 'local_pubs' pub.local_authority %}">{{pub.local_authority}}</a></td>
+          </tr>
+        {% endfor %}
+    </table>
+     {% else %}
+       <p>No pubs are available.</p>
+     {% endif %}
+{% endblock %}

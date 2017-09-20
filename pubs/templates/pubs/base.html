@@ -1,0 +1,16 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'pubs/style.css' %}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<html lang="en">
+  <head>
+    <title>{% block title %}Pubseeker{% endblock %}</title>
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+    {% block footer %}
+      <hr>
+      <p>Merton Lansley</p>
+    {% endblock %}
+  </body>
+</html>

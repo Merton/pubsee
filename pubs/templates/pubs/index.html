@@ -1,2 +1,13 @@
-<h1><a href="{% url 'publist' %}">Click here to view all the pubs</a></h1>
-<h2><a href="{% url 'nearme' %}">Click here pubs near you</a></h2>
+{% extends "./base.html" %}
+{% block content %}
+     <h1>Welcome to Pubseeker</h1>
+     <h2><a href="{% url 'publist' %}">View every pub</a></h2>
+     <h2><a href="{% url 'nearme' %}">Pubs near you</a></h2>
+     <h2><a href="{% url 'new' %}">Make your own pub</a></h2>
+     <form action="/pubs/area" method="POST">
+       {% csrf_token %}
+       <label for "area">Search by area: </label>
+       <input id="area" type="text" name="area">
+       <input type="submit" value="OK">
+     </form>
+{% endblock %}

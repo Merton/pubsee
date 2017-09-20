@@ -1,16 +1,6 @@
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{{local_authority}}</title>
-    <style>
-       #map {
-        height: 90vh;
-        width: 100%;
-       }
-    </style>
-  </head>
-  <body>
+{% extends "./base.html" %}
+{% block title %}{{local_authority}}{% endblock %}
+{% block content %}
     <h3>{{local_authority}}</h3>
     <div id="map"></div>
     <script>
@@ -20,6 +10,7 @@
           zoom: 10,
           center: uk
         });
+        position: {};
         {% for pub in local_pubs %}
           var marker = new google.maps.Marker({
             position: {lat: {{pub.latitude}}, lng: {{pub.longitude}}},
@@ -32,5 +23,4 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA55SAbFDVc2gwol366r5tIKceFruboj7c&callback=initMap">
     </script>
-  </body>
-</html>
+{% endblock %}
