@@ -4,10 +4,10 @@
      <h2><a href="{% url 'publist' %}">View every pub</a></h2>
      <h2><a href="{% url 'nearme' %}">Pubs near you</a></h2>
      <h2><a href="{% url 'new' %}">Make your own pub</a></h2>
-     <form action="/pubs/area" method="POST">
+     <form action="{url 'local_pubs' value}}" method="POST">
        {% csrf_token %}
        <label for "area">Search by area: </label>
-       <input id="area" type="text" name="area">
+       <input id="area" type="text" name="area" value="">
        <input type="submit" value="OK">
      </form>
 {% endblock %}

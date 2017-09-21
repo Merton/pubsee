@@ -1,7 +1,7 @@
 {% extends "./base.html" %}
 {% block content %}
 <h1>Create/Modify a Pub!</h1>
-<form action="{% url 'pubs' %}" method="post">
+<form action="{% url 'pub' form.instance.pub_id %}" method="post">
     {% csrf_token %}
     <table class=table>
       {{ form.as_table }}

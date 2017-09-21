@@ -20,27 +20,25 @@ class PubsView(View):
         return render(request, 'pubs/publist.html', context)
 
     def post(self, request):
-        pub_id = request.POST.get('pub_id', None)
-        print(pub_id)
-        instance = get_object_or_404(Pub, pk = pub_id)
         form = self.form_class(request.POST, instance=instance)
         if form.is_valid():
             data = form.process()
-            # pub = form.save(commit=False)
             form.save()
             return render(request, 'pubs/detail.html', {'pub': instance})
 
 class PubView(View):
+    form_class = PubForm
     def get(self, request, pub_id):
         pub = get_object_or_404(Pub, pk=pub_id)
         return render(request, 'pubs/detail.html', {'pub': pub})
-        
+
     def post(self, request, pub_id):
         pub = get_object_or_404(Pub, pk=pub_id)
-        form = self.PubForm(request.POST or None, instance=pub)
+        form = self.form_class(request.POST or None, instance=pub)
         if form.is_valid():
             form.process()
             form.save()
+            return render(request, 'pubs/detail.html', {'pub': pub})
 
 def index(request):
     return render(request, 'pubs/index.html')
