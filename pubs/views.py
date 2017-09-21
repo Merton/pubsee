@@ -2,24 +2,48 @@
 from __future__ import unicode_literals
 from django.shortcuts import render,get_object_or_404, get_list_or_404
 from django.http import HttpResponse
+from django.views import View
 from pubs.models import Pub, Local_Authority
 from pubs.scripts.pub_extensions import *
 from . forms import PubForm
 
 # TODO: Change format to use view classes rather than just functions
+
+# /Pubs view where:
+# a GET call returns the list of pubs
+# a POST call creates a new pub
+class PubsView(View):
+    form_class = PubForm
+    def get(self, request):
+        publist = Pub.objects.all().order_by('pub_id')
+        context = {'publist': publist}
+        return render(request, 'pubs/publist.html', context)
+
+    def post(self, request):
+        pub_id = request.POST.get('pub_id', None)
+        print(pub_id)
+        instance = get_object_or_404(Pub, pk = pub_id)
+        form = self.form_class(request.POST, instance=instance)
+        if form.is_valid():
+            data = form.process()
+            # pub = form.save(commit=False)
+            form.save()
+            return render(request, 'pubs/detail.html', {'pub': instance})
+
+class PubView(View):
+    def get(self, request, pub_id):
+        pub = get_object_or_404(Pub, pk=pub_id)
+        return render(request, 'pubs/detail.html', {'pub': pub})
+        
+    def post(self, request, pub_id):
+        pub = get_object_or_404(Pub, pk=pub_id)
+        form = self.PubForm(request.POST or None, instance=pub)
+        if form.is_valid():
+            form.process()
+            form.save()
+
 def index(request):
     return render(request, 'pubs/index.html')
-
-# Display the list of all pubs
-def publist(request):
-    publist = Pub.objects.all().order_by('local_authority')
-    context = {'publist': publist}
-    return render(request, 'pubs/publist.html', context)
-
-# Display a map view of a single pub
-def detail(request, pub_id):
-    pub = get_object_or_404(Pub, pub_id=pub_id)
-    return render(request, 'pubs/detail.html', {'pub': pub})
 
 # display all pubs within a certain area
 def nearme(request):

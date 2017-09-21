@@ -15,7 +15,7 @@
         {% for pub in publist %}
           <tr>
             <td>{{ pub.pub_id }}</td>
-            <td><a href="{% url 'detail' pub.pub_id %}">{{pub.name}}</a></td>
+            <td><a href="{% url 'pub' pub.pub_id %}">{{pub.name}}</a></td>
             <td>{{pub.address}}</td>
             <td>{{pub.postcode}}</td>
             <td>{{pub.latitude}}</td>
